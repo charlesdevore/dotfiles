@@ -15,3 +15,9 @@ unset __conda_setup
 
 # Set Emacs as default editor
 export EDITOR="emacs -nw"
+
+# Add MacTex to the path
+export PATH="$PATH:/Library/TeX/texbin"
+
+# Add usr local to the path
+export PATH="$PATH:/usr/local/bin"
