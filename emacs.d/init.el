@@ -72,7 +72,7 @@
 (global-set-key (kbd "M-;") 'comment-or-uncomment-region-or-line)
 
 ;; Maximize the screen on startup
-(add-to-list 'default-frame-alist '(fullscreen . maximized))
+;; (add-to-list 'default-frame-alist '(fullscreen . maximized))
 
 ;; Disable flashing yellow exclamation mark
 (setq visible-bell nil)
