@@ -74,4 +74,7 @@
 ;; Maximize the screen on startup
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 
+;; Disable flashing yellow exclamation mark
+(setq visible-bell nil)
+
 ;;; init.el ends here
