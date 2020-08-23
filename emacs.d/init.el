@@ -40,8 +40,8 @@
 (defalias 'yes-or-no-p 'y-or-n-p)
 
 ;; Git support
-;;(require 'magit)
-;;(global-set-key (kbd "C-c g") 'magit-status)
+(require 'magit)
+(global-set-key (kbd "C-c g") 'magit-status)
 
 
 ;; (add-hook 'after-init-hook 'global-company-mode)
