@@ -77,4 +77,7 @@
 ;; Disable flashing yellow exclamation mark
 (setq visible-bell nil)
 
+;; Use aspell for spell-checking
+(setq ispell-program-name "/usr/local/bin/aspell")
+
 ;;; init.el ends here
