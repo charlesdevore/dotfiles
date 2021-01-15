@@ -13,12 +13,43 @@
              '("melpa" . "http://melpa.org/packages/") t)
 
 (package-initialize)
-(when (not package-archive-contents)
-  (package-refresh-contents))
+;; (package-refresh-contents)
 
 
+;; Set the default directory
 (let ((default-directory "~/.emacs.d/"))
   (normal-top-level-add-subdirs-to-load-path))
+
+
+;; Set packages to load
+(defvar myPackages
+  '(better-defaults
+    spacemacs-theme
+    )
+  )
+
+;; If the package isn't installed, install it
+(mapc #'(lambda (package)
+	  (unless (package-installed-p package)
+	    (package-install package)))
+      myPackages)
+
+
+;; Set the default and alternate theme. Add a keyboard shortcut to toggle between the two themes
+(setq default-theme 'spacemacs-dark)
+(setq alternate-theme 'spacemacs-light)
+(load-theme alternate-theme t)
+(load-theme default-theme t)
+(defun toggle-theme ()
+  (interactive)
+  (if (eq (car custom-enabled-themes) alternate-theme)
+      (disable-theme alternate-theme)
+    (enable-theme alternate-theme)
+    )
+  )
+(global-set-key [f5] 'toggle-theme)
+
+
 
 (require 'install-packages)
 (require 'better-defaults)
@@ -41,7 +72,6 @@
         (mark " "
               (name 16 -1) " " filename)))
 
-(load-theme 'cyberpunk t)
 ;; (windmove-default-keybindings)
 (defalias 'yes-or-no-p 'y-or-n-p)
 
