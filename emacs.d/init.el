@@ -13,7 +13,11 @@
              '("melpa" . "http://melpa.org/packages/") t)
 
 (package-initialize)
-;; (package-refresh-contents)
+
+;; Refresh the packages if there are no archives
+(when (not package-archive-contents)
+  (package-refresh-contents)
+  )
 
 
 ;; Set the default directory
