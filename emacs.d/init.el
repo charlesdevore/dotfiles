@@ -25,18 +25,20 @@
   (normal-top-level-add-subdirs-to-load-path))
 
 
-;; Set packages to load
-(defvar myPackages
+;; Set packages to load for the defaults and themes
+(defvar theme-default-packages
   '(better-defaults
     spacemacs-theme
     )
   )
 
 ;; If the package isn't installed, install it
-(mapc #'(lambda (package)
-	  (unless (package-installed-p package)
-	    (package-install package)))
-      myPackages)
+(defun install-package-if-not-installed (package)
+  (interactive)
+  (unless (package-installed-p package)
+    (package-install package))
+  )
+(mapc 'install-package-if-not-installed theme-default-packages)
 
 
 ;; Set the default and alternate theme. Add a keyboard shortcut to toggle between the two themes
