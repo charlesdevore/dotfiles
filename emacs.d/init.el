@@ -26,11 +26,14 @@
 
 ;; Define a function to help install packages
 (defun install-package-if-not-installed (package)
-  "Take the package name as input. If not installed,
-install using default package install. If installed,
- do nothing."
+  "Install PACKAGE if not already installed.
+
+If not installed, install using default package install.  If
+installed, do nothing."
   (interactive)
+  (print package)
   (unless (package-installed-p package)
+    (package-refresh-contents)
     (package-install package))
   )
 
@@ -38,6 +41,7 @@ install using default package install. If installed,
 (defvar theme-default-packages
   '(better-defaults
     spacemacs-theme
+    use-package
     )
   )
 (mapc 'install-package-if-not-installed theme-default-packages)
@@ -47,11 +51,12 @@ install using default package install. If installed,
 
 
 ;; Set the default and alternate theme
-(setq default-theme 'spacemacs-dark)
-(setq alternate-theme 'spacemacs-light)
+(defvar default-theme 'spacemacs-dark)
+(defvar alternate-theme 'spacemacs-light)
 (load-theme alternate-theme t)
 (load-theme default-theme t)
 (defun toggle-theme ()
+  "Toggle the theme from light to dark."
   (interactive)
   (if (eq (car custom-enabled-themes) alternate-theme)
       (disable-theme alternate-theme)
@@ -65,7 +70,7 @@ install using default package install. If installed,
 (setq inhibit-startup-message t)
 
 ;; Set the line number format on the left side of the buffer
-(setq linum-format "%4d \u2502 ")
+(defvar linum-format "%4d \u2502 ")
 (global-linum-mode t)
 
 
@@ -91,12 +96,25 @@ install using default package install. If installed,
 (setq visible-bell nil)
 
 ;; Use aspell for spell-checking
-(setq ispell-program-name "/usr/local/bin/aspell")
+(defvar ispell-program-name "/usr/local/bin/aspell")
 
 
 ;; Set the individual development language settings in an external
 ;; file and directory.
+(defun load-directory (directory)
+  "Load recursively all `.el' files in DIRECTORY."
+  (dolist (element (directory-files-and-attributes directory nil nil nil))
+    (let* ((path (car element))
+           (fullpath (concat directory "/" path))
+           (isdir (car (cdr element)))
+           (ignore-dir (or (string= path ".") (string= path ".."))))
+      (cond
+       ((and (eq isdir t) (not ignore-dir))
+        (load-directory fullpath))
+       ((and (eq isdir nil) (string= (substring path -3) ".el"))
+        (print fullpath)
+        (load (substring fullpath 0 -3)))))))
+(load-directory "~/.emacs.d/development")
 (require 'development)
-
 
 ;;; init.el ends here
