@@ -42,6 +42,9 @@ install using default package install. If installed,
   )
 (mapc 'install-package-if-not-installed theme-default-packages)
 
+;; Use the better defaults
+(require 'better-defaults)
+
 
 ;; Set the default and alternate theme
 (setq default-theme 'spacemacs-dark)
@@ -58,28 +61,13 @@ install using default package install. If installed,
 ;; Add a keyboard shortcut to toggle between the two themes
 (global-set-key [f5] 'toggle-theme)
 
+;; Remove the startup message
+(setq inhibit-startup-message t)
 
-
-(require 'install-packages)
-(require 'better-defaults)
-
-(setq inhibit-startup-message t
-      linum-format "%4d \u2502 ")
-
+;; Set the line number format on the left side of the buffer
+(setq linum-format "%4d \u2502 ")
 (global-linum-mode t)
 
-;; Add MATLAB support
-(autoload 'matlab-mode "matlab" "Enter MATLAB mode." t)
-(setq auto-mode-alist (cons '("\\.m\\'" . matlab-mode) auto-mode-alist))
-(autoload 'matlab-shell "matlab" "Interactive MATLAB mode." t)
-
-
-;; modify ibuffer-formats to set name column wider
-(setq ibuffer-formats
-      '((mark modified read-only " "
-              (name 40 40 :left :elide) " " filename)
-        (mark " "
-              (name 16 -1) " " filename)))
 
 ;; (windmove-default-keybindings)
 (defalias 'yes-or-no-p 'y-or-n-p)
@@ -88,23 +76,7 @@ install using default package install. If installed,
 (require 'magit)
 (global-set-key (kbd "C-c g") 'magit-status)
 
-
-;; (add-hook 'after-init-hook 'global-company-mode)
-
-;; customize company-mode
-;; (setq company-require-match nil)
-;; (setq company-abort (kbd "C-a"))
-;; (setq company-idle-delay 0)
-;; (setq company-echo-delay 0)
-;; (setq company-minimum-prefix-length 1)
-
-(require 'development)
-
-;; Add keybindings for launching a python interactive session and a shell
-(define-key global-map (kbd "C-c p") 'run-python)
-(define-key global-map (kbd "C-c s") 'shell)
-
-
+;; Add a helper function to comment or uncomment a line or region
 (defun comment-or-uncomment-region-or-line ()
     "Comment/uncomment the region or current line."
     (interactive)
@@ -113,16 +85,18 @@ install using default package install. If installed,
             (setq beg (region-beginning) end (region-end))
             (setq beg (line-beginning-position) end (line-end-position)))
         (comment-or-uncomment-region beg end)))
-
 (global-set-key (kbd "M-;") 'comment-or-uncomment-region-or-line)
-
-;; Maximize the screen on startup
-;; (add-to-list 'default-frame-alist '(fullscreen . maximized))
 
 ;; Disable flashing yellow exclamation mark
 (setq visible-bell nil)
 
 ;; Use aspell for spell-checking
 (setq ispell-program-name "/usr/local/bin/aspell")
+
+
+;; Set the individual development language settings in an external
+;; file and directory.
+(require 'development)
+
 
 ;;; init.el ends here
