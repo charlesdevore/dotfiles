@@ -24,6 +24,15 @@
 (let ((default-directory "~/.emacs.d/"))
   (normal-top-level-add-subdirs-to-load-path))
 
+;; Define a function to help install packages
+(defun install-package-if-not-installed (package)
+  "Take the package name as input. If not installed,
+install using default package install. If installed,
+ do nothing."
+  (interactive)
+  (unless (package-installed-p package)
+    (package-install package))
+  )
 
 ;; Set packages to load for the defaults and themes
 (defvar theme-default-packages
@@ -31,17 +40,10 @@
     spacemacs-theme
     )
   )
-
-;; If the package isn't installed, install it
-(defun install-package-if-not-installed (package)
-  (interactive)
-  (unless (package-installed-p package)
-    (package-install package))
-  )
 (mapc 'install-package-if-not-installed theme-default-packages)
 
 
-;; Set the default and alternate theme. Add a keyboard shortcut to toggle between the two themes
+;; Set the default and alternate theme
 (setq default-theme 'spacemacs-dark)
 (setq alternate-theme 'spacemacs-light)
 (load-theme alternate-theme t)
@@ -53,6 +55,7 @@
     (enable-theme alternate-theme)
     )
   )
+;; Add a keyboard shortcut to toggle between the two themes
 (global-set-key [f5] 'toggle-theme)
 
 
