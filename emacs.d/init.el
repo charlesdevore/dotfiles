@@ -117,4 +117,9 @@ installed, do nothing."
 (load-directory "~/.emacs.d/development")
 (require 'development)
 
+(custom-set-variables
+ '(conda-anaconda-home "/opt/miniconda3"))
+
+
+
 ;;; init.el ends here

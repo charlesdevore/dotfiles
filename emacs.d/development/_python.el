@@ -8,24 +8,48 @@
 
 ;;; Code:
 
-;; Define and install python development packages 
-(defvar python-development-packages
+;; Define and install python development packages
+(setq python-development-packages
   '(elpy
     py-autopep8
     blacken
     conda
+    anaconda-mode
+    company-anaconda
     )
   )
 (mapc 'install-package-if-not-installed python-development-packages)
 
 
-(elpy-enable)
+;; (elpy-enable)
 
-(require 'conda)
-(custom-set-variables
- '(conda-anaconda-home "/opt/miniconda3"))
-(print conda-anaconda-home)
-(print conda-env-home-directory)
+(add-hook 'python-mode-hook 'anaconda-mode)
+(add-hook 'python-mode-hook 'anaconda-eldoc-mode)
+
+;; Add Company Jedi support
+;; (require 'company-jedi)
+;; (defun my/python-mode-company-jedi-hook ()
+;;   (add-to-list 'company-backends 'company-jedi))
+;; (add-hook 'python-mode-hook 'my/python-mode-company-jedi-hook)
+;; (add-hook 'python-mode-hook 'jedi:setup)
+;; (setq jedi:complete-on-dot t)
+
+;; (use-package company-jedi
+;;   :ensure t
+;;   :config
+;;   (add-to-list 'company-backends 'company-jedi))
+
+(use-package conda
+  :ensure t
+  :init
+  (setq conda-anaconda-home "/opt/miniconda3/")
+  (setq conda-env-home-directory "/opt/miniconda3/"))
+
+(eval-after-load "company"
+  '(add-to-list 'company-backends '(company-anaconda :with company-capf)))
+
+;; (add-hook 'conda-postactivate-hook 'jedi:stop-server)
+;; (add-hook 'conda-postdeactivate-hook 'jedi:stop-server)
 
 ;; (defvar py-shell-name "python3")
 
@@ -34,9 +58,9 @@
 
 ;; (defvar python-shell-completion-native-enable nil)
 
-(when (require 'flycheck nil t)
-  (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
-  (add-hook 'elpy-mode-hook 'flycheck-mode))
+;; (when (require 'flycheck nil t)
+;;   (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
+;;   (add-hook 'elpy-mode-hook 'flycheck-mode))
 
 ;; enable autopep8 formatting on save
 ;; ignoring:
@@ -44,12 +68,13 @@
 ;; - W293 - Remove trailing whitespace on blank line.
 ;; - W391 - Remove trailing blank lines.
 ;; - W690 - Fix various deprecated code (via lib2to3).
-(require 'py-autopep8)
-(add-hook 'elpy-mode-hook 'py-autopep8-enable-on-save)
-(setq py-autopep8-options '("--ignore=E501,W293,W391,W690"))
-(setq py-autopep8-options '("--max-line-length=100"))
 
-(define-key global-map (kbd "RET") 'newline-and-indent)
+;; (require 'py-autopep8)
+;; (add-hook 'elpy-mode-hook 'py-autopep8-enable-on-save)
+;; (setq py-autopep8-options '("--ignore=E501,W293,W391,W690"))
+;; (setq py-autopep8-options '("--max-line-length=100"))
+
+;; (define-key global-map (kbd "RET") 'newline-and-indent)
 
 
 ;; Set tab width to four spaces
