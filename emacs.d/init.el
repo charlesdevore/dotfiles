@@ -42,6 +42,7 @@ installed, do nothing."
   '(better-defaults
     spacemacs-theme
     use-package
+    fill-column-indicator
     )
   )
 (mapc 'install-package-if-not-installed theme-default-packages)
@@ -73,6 +74,11 @@ installed, do nothing."
 (defvar linum-format "%4d \u2502 ")
 (global-linum-mode t)
 
+;; Show the column number in the mini-buffer
+(setq column-number-mode t)
+
+;; Add the fill-column indicator
+(require 'fill-column-indicator)
 
 ;; (windmove-default-keybindings)
 (defalias 'yes-or-no-p 'y-or-n-p)
