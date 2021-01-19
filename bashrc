@@ -21,3 +21,6 @@ export PATH="$PATH:/Library/TeX/texbin"
 
 # Add usr local to the path
 export PATH="$PATH:/usr/local/bin"
+
+# Add a variable pointing to the Anaconda directory
+export ANACONDA_HOME="/opt/miniconda3/"
