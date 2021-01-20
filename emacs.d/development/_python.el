@@ -11,7 +11,6 @@
 ;; Define and install python development packages
 (defvar python-development-packages
   '(elpy
-    py-autopep8
     blacken
     conda
     anaconda-mode
@@ -28,9 +27,6 @@
 ;; Sort the import statements before saving
 (add-hook 'before-save-hook 'py-isort-before-save)
 
-;; Add autopep8 on save
-(add-hook 'python-mode-hook 'py-autopep8-enable-on-save)
-
 (use-package conda
   :ensure t
   :init
@@ -41,24 +37,9 @@
   '(add-to-list 'company-backends '(company-anaconda :with company-capf)))
 
 
-;; (defvar python-shell-completion-native-enable nil)
-
-
-;; Enbable Blacken
+;; Enbable Black
 (require 'blacken)
 (add-hook 'python-mode-hook 'blacken-mode)
-
-;; enable autopep8 formatting on save
-;; ignoring:
-;; - E501 - Try to make lines fit within --max-line-length characters.
-;; - W293 - Remove trailing whitespace on blank line.
-;; - W391 - Remove trailing blank lines.
-;; - W690 - Fix various deprecated code (via lib2to3).
-
-(require 'py-autopep8)
-(add-hook 'python-mode-hook 'py-autopep8-enable-on-save)
-(setq py-autopep8-options '("--ignore=E501,W293,W391,W690"))
-(setq py-autopep8-options '("--max-line-length=80"))
 
 
 ;; Set tab width to four spaces
