@@ -32,8 +32,8 @@
   :ensure t
   :init
   (defvar conda-anaconda-home "/opt/miniconda3/")
-  (defvar conda-env-home-directory "/opt/miniconda3/")
-  (defvar conda-env-autoactivate-mode t))
+  (defvar conda-env-home-directory "/opt/miniconda3/"))
+(conda-env-autoactivate-mode t)
 
 (eval-after-load "company"
   '(add-to-list 'company-backends '(company-anaconda :with company-capf)))
