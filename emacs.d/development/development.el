@@ -36,12 +36,5 @@
 
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
-(require '_python)
-;; (require '_golang)
-(require '_markdown)
-;; (require '_web)
-;; (require '_json)
-
-(provide 'development)
 
 ;;; development.el ends here

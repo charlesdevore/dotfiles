@@ -86,6 +86,4 @@
 ;; (require 'ein)
 
 
-(provide '_python)
-
 ;;; _python.el ends here

@@ -121,7 +121,7 @@ installed, do nothing."
         (print fullpath)
         (load (substring fullpath 0 -3)))))))
 (load-directory "~/.emacs.d/development")
-(require 'development)
+;; (require 'development)
 
 (custom-set-variables
  '(conda-anaconda-home "/opt/miniconda3"))
