@@ -70,6 +70,10 @@ installed, do nothing."
 ;; Remove the startup message
 (setq inhibit-startup-message t)
 
+;; Prefer splitting window vertically
+(setq split-width-threshold 100
+      split-height-threshold 50)
+
 ;; Set the line number format on the left side of the buffer
 (defvar linum-format "%4d \u2502 ")
 (global-linum-mode t)
@@ -121,10 +125,7 @@ installed, do nothing."
         (print fullpath)
         (load (substring fullpath 0 -3)))))))
 (load-directory "~/.emacs.d/development")
-;; (require 'development)
 
-(custom-set-variables
- '(conda-anaconda-home "/opt/miniconda3"))
 
 
 
