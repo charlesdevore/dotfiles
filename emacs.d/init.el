@@ -73,6 +73,19 @@ installed, do nothing."
 ;; Prefer splitting window vertically
 (setq split-width-threshold 160
       split-height-threshold 80)
+(defun my-split-window-sensibly (&optional window)
+    "replacement `split-window-sensibly' function which prefers vertical splits"
+    (interactive)
+    (let ((window (or window (selected-window))))
+        (or (and (window-splittable-p window t)
+                 (with-selected-window window
+                     (split-window-right)))
+            (and (window-splittable-p window)
+                 (with-selected-window window
+                     (split-window-below))))))
+
+(setq split-window-preferred-function #'my-split-window-sensibly)
+
 
 ;; Set the line number format on the left side of the buffer
 (defvar linum-format "%4d \u2502 ")
