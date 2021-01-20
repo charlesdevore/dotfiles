@@ -11,7 +11,8 @@
 ;; Define and install python development packages
 (defvar python-development-packages
   '(elpy
-    blacken
+    ;; blacken
+    python-black
     conda
     anaconda-mode
     company-anaconda
