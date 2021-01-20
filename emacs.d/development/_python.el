@@ -31,15 +31,20 @@
   :ensure t
   :init
   (defvar conda-anaconda-home "/opt/miniconda3/")
-  (defvar conda-env-home-directory "/opt/miniconda3/"))
+  (defvar conda-env-home-directory "/opt/miniconda3/")
+  (defvar conda-env-autoactivate-mode t))
 
 (eval-after-load "company"
   '(add-to-list 'company-backends '(company-anaconda :with company-capf)))
 
 
 ;; Enbable Black
-(require 'blacken)
-(add-hook 'python-mode-hook 'blacken-mode)
+;; (require 'blacken)
+;; (add-hook 'python-mode-hook 'blacken-mode)
+(use-package python-black
+  :demand t
+  :after python)
+(add-hook 'python-mode-hook 'python-black-on-save-mode)
 
 
 ;; Set tab width to four spaces
