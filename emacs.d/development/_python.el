@@ -77,8 +77,8 @@
 ;; Set the python shells
 (add-hook 'python-mode-hook
           (lambda ()
-            (setq python-shell-interpreter "ipython")
-            (setq python-shell-interpreter-args "-i --simple-prompt")))
+            (setq python-shell-interpreter "python")
+            (setq python-shell-interpreter-args "-i")))
 
 
 
