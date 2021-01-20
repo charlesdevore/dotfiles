@@ -71,8 +71,8 @@ installed, do nothing."
 (setq inhibit-startup-message t)
 
 ;; Prefer splitting window vertically
-(setq split-width-threshold 100
-      split-height-threshold 50)
+(setq split-width-threshold 160
+      split-height-threshold 80)
 
 ;; Set the line number format on the left side of the buffer
 (defvar linum-format "%4d \u2502 ")
